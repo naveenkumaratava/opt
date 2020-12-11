@@ -5,7 +5,11 @@
 </head>
 <body>
   <form>
-    <input type="text" id="verificationcode" value="enter verification">
+    <input type="tel" id="phonenumber" placeholder="enter phone Number">
+    <input type="button" value="Submit" onclick="otplogin()">
+  </form>
+  <form>
+    <input type="text" id="verificationcode" placeholder="enter verification">
     <input type="button" value="Submit" onclick="myFunction()">
   </form>
   <div id="recaptcha-container"></div>
@@ -26,11 +30,15 @@
 <!-- window.recaptchaVerifier -->
 <script type="text/javascript">
   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-  firebase.auth().signInWithPhoneNumber("+919502831877",window.recaptchaVerifier) 
+  function otplogin(){ 
+    const numm="+91" + document.querySelector('#phonenumber').value;
+    console.log(numm);
+  firebase.auth().signInWithPhoneNumber(numm,window.recaptchaVerifier) 
   .then(function(confirmationResult) {
     window.confirmationResult = confirmationResult;
     console.log(confirmationResult);
   });
+}
   var myFunction = function() {
     window.confirmationResult.confirm(document.getElementById("verificationcode").value)
     .then(function(result) {
